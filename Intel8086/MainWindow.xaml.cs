@@ -21,13 +21,14 @@ namespace Intel8086
     /// </summary>
     public partial class MainWindow : Window
     {
-        bool isClickedLMB = false;
-        bool isClickedRMB = false;
         string selected;
         string selected2;
+        bool properlyCheck;
+        bool properlyCheck2;
         TextBox registerFirst = new TextBox();
+        TextBox registerFirstHelper = new TextBox();
         TextBox registerSecond = new TextBox();
-        TextBox test2 = new TextBox();
+        TextBox registerSecondHelper = new TextBox();
 
         public MainWindow()
         {
@@ -36,9 +37,25 @@ namespace Intel8086
 
         private void MOV(object sender, RoutedEventArgs e)
         {
+            if(properlyCheck && properlyCheck2 || !properlyCheck && !properlyCheck2)
             registerFirst.Text = registerSecond.Text;
+            if (registerFirstHelper != null && registerSecondHelper != null)
+            {
+                registerFirstHelper.Text = registerSecondHelper.Text;
+            }
         }
 
+        private void PUSH()
+        {
+            //rejestr do stosu
+            //SP+2
+        }
+
+        private void POP()
+        {
+            //sp-2
+            //rejestr odejmujemy od stosu
+        }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -71,7 +88,36 @@ namespace Intel8086
                 registerFirst = dhTextBox;
             else if (selected2 == "DL")
                 registerFirst = dlTextBox;
-
+            
+            if (selected2 == "AX")
+            {
+                registerFirst = ahTextBox;
+                registerFirstHelper = alTextBox;
+                properlyCheck = false;
+            }
+            else if (selected2 == "BX")
+            {
+                registerFirst = bhTextBox;
+                registerFirstHelper = blTextBox;
+                properlyCheck = false;
+            }
+            else if (selected2 == "CX")
+            {
+                registerFirst = chTextBox;
+                registerFirstHelper = clTextBox;
+                properlyCheck = false;
+            }
+            else if (selected2 == "DX")
+            {
+                registerFirst = dhTextBox;
+                registerFirstHelper = dlTextBox;
+                properlyCheck = false;
+            } 
+            else
+            {
+                registerFirstHelper = null;
+                properlyCheck = true;
+            }
         }
 
         private void secondRegister_DropDownClosed(object sender, EventArgs e)
@@ -93,13 +139,55 @@ namespace Intel8086
                 registerSecond = dhTextBox;
             else if (selected == "DL")
                 registerSecond = dlTextBox;
+            if(selected == "AX")
+            {
+                registerSecond = ahTextBox;
+                registerSecondHelper = alTextBox;
+                properlyCheck2 = false;
+            }
+            else if (selected == "BX")
+            {
+                registerSecond = bhTextBox;
+                registerSecondHelper = blTextBox;
+                properlyCheck2 = false;
+            }
+            else if (selected == "CX")
+            {
+                registerSecond = chTextBox;
+                registerSecondHelper = clTextBox;
+                properlyCheck2 = false;
+            }
+            else if (selected == "DX")
+            {
+                registerSecond = dhTextBox;
+                registerSecondHelper = dlTextBox;
+                properlyCheck2 = false;
+
+            }
+            else
+            {
+                registerSecondHelper = null;
+                properlyCheck2 = true;
+            }
         }
 
         private void XCHNG(object sender, RoutedEventArgs e)
         {
-            test2.Text = registerSecond.Text;
-            registerSecond.Text = registerFirst.Text;
-            registerFirst.Text = test2.Text;
+            TextBox holder = new TextBox();
+            TextBox holderHelper = new TextBox();
+            if (properlyCheck && properlyCheck2 || !properlyCheck && !properlyCheck2)
+            {
+                holder.Text = registerSecond.Text;
+                registerSecond.Text = registerFirst.Text;
+                registerFirst.Text = holder.Text;
+            }
+            if (registerFirstHelper != null & registerSecondHelper != null)
+            {
+                holderHelper.Text = registerSecondHelper.Text;
+                registerFirstHelper.Text = holderHelper.Text;
+                registerSecondHelper.Text = registerFirstHelper.Text;
+            }
+
         }
     }
 }

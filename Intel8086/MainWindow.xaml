@@ -5,36 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Intel8086"
         mc:Ignorable="d"
-        Title="Symulator Intel 8086" Height="350" Width="600">
+        Title="Symulator Intel 8086" Height="425" Width="600">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.3*"/>
             <ColumnDefinition Width="0.3*"/>
             <ColumnDefinition Width="0.3*"/>
-            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.75*"/>
+            <RowDefinition Height="0.75*"/>
+            <RowDefinition Height="0.75*"/>
+            <RowDefinition Height="0.75*"/>
+
         </Grid.RowDefinitions>
         <Label Content="AX" HorizontalAlignment="Left" Margin="15,35,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="18" RenderTransformOrigin="-0.581,-0.588"/>
         <Label Content="BX" HorizontalAlignment="Left" Margin="15,75,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="18" RenderTransformOrigin="-0.581,-0.588"/>
         <Label Content="CX" HorizontalAlignment="Left" Margin="15,115,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="18" RenderTransformOrigin="-0.581,-0.588"/>
         <Label Content="DX" HorizontalAlignment="Left" Margin="15,155,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="18" RenderTransformOrigin="-0.581,-0.588"/>
-        <Label x:Name="ahLabel" Content="H" HorizontalAlignment="Center" Margin="0,2,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="18" RenderTransformOrigin="-0.581,-0.588" Grid.Column="1"/>
-        <TextBox x:Name="ahTextBox" HorizontalAlignment="Center" Margin="0,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Height="34" Grid.Column="1" FontSize="20" FontWeight="Bold" TextAlignment="Center" MaxLength="2" MaxLines="1" CharacterCasing="Upper" TextChanged="TextBox_TextChanged"/>
-        <TextBox x:Name="bhTextBox" HorizontalAlignment="Center" Margin="0,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Height="34" Grid.Column="1" FontSize="20" FontWeight="Bold" TextAlignment="Center" MaxLength="2" MaxLines="1" CharacterCasing="Upper" TextChanged="TextBox_TextChanged"/>
-        <TextBox x:Name="chTextBox" HorizontalAlignment="Center" Margin="0,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Height="34" Grid.Column="1" FontSize="20" FontWeight="Bold" TextAlignment="Center" MaxLength="2" MaxLines="1" CharacterCasing="Upper" TextChanged="TextBox_TextChanged"/>
-        <TextBox x:Name="dhTextBox" HorizontalAlignment="Center" Margin="0,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Height="34" Grid.Column="1" FontSize="20" FontWeight="Bold" TextAlignment="Center" MaxLength="2" MaxLines="1" CharacterCasing="Upper" TextChanged="TextBox_TextChanged"/>
-        <Label Content="L" HorizontalAlignment="Left" Margin="28,2,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="18" RenderTransformOrigin="-0.581,-0.588" Grid.Column="2"/>
-        <TextBox x:Name="alTextBox" HorizontalAlignment="Center" Margin="0,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Height="34" Grid.Column="2" FontSize="20" FontWeight="Bold" TextAlignment="Center" MaxLength="2" MaxLines="1" CharacterCasing="Upper" TextChanged="TextBox_TextChanged"/>
-        <TextBox x:Name="blTextBox" HorizontalAlignment="Center" Margin="0,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Height="34" Grid.Column="2" FontSize="20" FontWeight="Bold" TextAlignment="Center" MaxLength="2" MaxLines="1" CharacterCasing="Upper" TextChanged="TextBox_TextChanged"/>
-        <TextBox x:Name="clTextBox" HorizontalAlignment="Center" Margin="0,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Height="34" Grid.Column="2" FontSize="20" FontWeight="Bold" TextAlignment="Center" MaxLength="2" MaxLines="1" CharacterCasing="Upper" TextChanged="TextBox_TextChanged"/>
-        <TextBox x:Name="dlTextBox" HorizontalAlignment="Center" Margin="0,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Height="34" Grid.Column="2" FontSize="20" FontWeight="Bold" TextAlignment="Center" MaxLength="2" MaxLines="1" CharacterCasing="Upper" TextChanged="TextBox_TextChanged"/>
-        <Button Content="MOV" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="100" Grid.Row="1" Click="MOV"/>
-        <Button Content="XCHG" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="100" Grid.Row="1" Click="XCHNG"/>
+        <Label x:Name="ahLabel" Content="H" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="18" RenderTransformOrigin="-0.581,-0.588" Grid.Column="1"/>
+        <TextBox x:Name="ahTextBox" HorizontalAlignment="Center" Margin="0,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Height="34" Grid.Column="1" FontSize="20" FontWeight="Bold" TextAlignment="Center" MaxLength="2" MaxLines="1" CharacterCasing="Upper" TextChanged="TextBox_TextChanged" Text="00"/>
+        <TextBox x:Name="bhTextBox" HorizontalAlignment="Center" Margin="0,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Height="34" Grid.Column="1" FontSize="20" FontWeight="Bold" TextAlignment="Center" MaxLength="2" MaxLines="1" CharacterCasing="Upper" TextChanged="TextBox_TextChanged"/>
+        <TextBox x:Name="chTextBox" HorizontalAlignment="Center" Margin="0,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Height="34" Grid.Column="1" FontSize="20" FontWeight="Bold" TextAlignment="Center" MaxLength="2" MaxLines="1" CharacterCasing="Upper" TextChanged="TextBox_TextChanged"/>
+        <TextBox x:Name="dhTextBox" HorizontalAlignment="Center" Margin="0,155,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Height="34" Grid.Column="1" FontSize="20" FontWeight="Bold" TextAlignment="Center" MaxLength="2" MaxLines="1" CharacterCasing="Upper" TextChanged="TextBox_TextChanged"/>
+        <Label Content="L" HorizontalAlignment="Left" Margin="28,1,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="18" RenderTransformOrigin="-0.581,-0.588" Grid.Column="2"/>
+        <TextBox x:Name="alTextBox" HorizontalAlignment="Center" Margin="0,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Height="34" Grid.Column="2" FontSize="20" FontWeight="Bold" TextAlignment="Center" MaxLength="2" MaxLines="1" CharacterCasing="Upper" TextChanged="TextBox_TextChanged"/>
+        <TextBox x:Name="blTextBox" HorizontalAlignment="Center" Margin="0,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Height="34" Grid.Column="2" FontSize="20" FontWeight="Bold" TextAlignment="Center" MaxLength="2" MaxLines="1" CharacterCasing="Upper" TextChanged="TextBox_TextChanged"/>
+        <TextBox x:Name="clTextBox" HorizontalAlignment="Center" Margin="0,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Height="34" Grid.Column="2" FontSize="20" FontWeight="Bold" TextAlignment="Center" MaxLength="2" MaxLines="1" CharacterCasing="Upper" TextChanged="TextBox_TextChanged"/>
+        <TextBox x:Name="dlTextBox" HorizontalAlignment="Center" Margin="0,155,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Height="34" Grid.Column="2" FontSize="20" FontWeight="Bold" TextAlignment="Center" MaxLength="2" MaxLines="1" CharacterCasing="Upper" TextChanged="TextBox_TextChanged"/>
+        <Button Content="MOV" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="100" Grid.Row="1" Click="MOV"/>
+        <Button Content="XCHG" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" Height="50" Width="100" Grid.Row="1" Click="XCHNG" Margin="50,0,0,0"/>
         <ComboBox x:Name="firstRegister" Grid.Column="3" HorizontalAlignment="Left" Margin="25,41,0,0" VerticalAlignment="Top" Width="50" DropDownClosed="firstRegister_DropDownClosed">
+            <ComboBoxItem Content="AX"/>
+            <ComboBoxItem Content="BX"/>
+            <ComboBoxItem Content="CX"/>
+            <ComboBoxItem Content="DX"/>
             <ComboBoxItem Content="AH"/>
             <ComboBoxItem Content="AL"/>
             <ComboBoxItem Content="BH"/>
@@ -46,6 +54,10 @@
 
         </ComboBox>
         <ComboBox x:Name="firstRegister_Copy" Grid.Column="3" HorizontalAlignment="Left" Margin="100,42,0,0" VerticalAlignment="Top" Width="50" DropDownClosed="secondRegister_DropDownClosed">
+            <ComboBoxItem Content="AX"/>
+            <ComboBoxItem Content="BX"/>
+            <ComboBoxItem Content="CX"/>
+            <ComboBoxItem Content="DX"/>
             <ComboBoxItem Content="AH"/>
             <ComboBoxItem Content="AL"/>
             <ComboBoxItem Content="BH"/>
@@ -56,5 +68,16 @@
             <ComboBoxItem Content="DL"/>
 
         </ComboBox>
+        <Label Content="Partial registers" Grid.Column="3" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="125" Height="26"/>
+        <Label Content="SP" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="18" RenderTransformOrigin="-0.581,-0.588" Grid.Row="1"/>
+        <Label Content="BP" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="18" RenderTransformOrigin="-0.581,-0.588" Grid.Row="2"/>
+        <Label Content="SI" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="18" RenderTransformOrigin="-0.581,-0.588" Grid.Row="3"/>
+        <Label Content="DI" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="18" RenderTransformOrigin="-0.581,-0.588" Grid.Row="4"/>
+        <TextBox x:Name="spTextBox" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="112" Height="34" Grid.Column="1" FontSize="20" FontWeight="Bold" TextAlignment="Center" MaxLength="2" MaxLines="1" CharacterCasing="Upper" TextChanged="TextBox_TextChanged" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="bpTextBox" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="112" Height="34" Grid.Column="1" FontSize="20" FontWeight="Bold" TextAlignment="Center" MaxLength="2" MaxLines="1" CharacterCasing="Upper" TextChanged="TextBox_TextChanged" Grid.ColumnSpan="2" Grid.Row="2"/>
+        <TextBox x:Name="siTextBox" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="112" Height="34" Grid.Column="1" FontSize="20" FontWeight="Bold" TextAlignment="Center" MaxLength="2" MaxLines="1" CharacterCasing="Upper" TextChanged="TextBox_TextChanged" Grid.ColumnSpan="2" Grid.Row="3"/>
+        <TextBox x:Name="diTextBox" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="112" Height="34" Grid.Column="1" FontSize="20" FontWeight="Bold" TextAlignment="Center" MaxLength="2" MaxLines="1" CharacterCasing="Upper" TextChanged="TextBox_TextChanged" Grid.ColumnSpan="2" Grid.Row="4"/>
+        <Button Content="PUSH" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" Height="50" Width="100" Grid.Row="3" Click="XCHNG" Margin="50,0,0,0"/>
+        <Button Content="POP" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="100" Grid.Row="3" Click="MOV"/>
     </Grid>
 </Window>
