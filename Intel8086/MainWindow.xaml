@@ -84,11 +84,14 @@
         <TextBox x:Name="movTextBox" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="112" Height="34" Grid.Column="4" FontSize="20" FontWeight="Bold" TextAlignment="Center" MaxLength="10" MaxLines="1" CharacterCasing="Upper" Grid.Row="2" Margin="42,7,0,0"/>
         <TextBox x:Name="dsTextBox" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="112" Height="34" Grid.Column="4" FontSize="20" FontWeight="Bold" TextAlignment="Center" MaxLength="2" MaxLines="1" CharacterCasing="Upper" TextChanged="TextBox_TextChanged" Margin="0,36,0,0" Text="2137"/>
         <Label Content="DS" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" FontSize="18" RenderTransformOrigin="-0.581,-0.588" Grid.Column="4" Margin="10,36,0,0"/>
-        <CheckBox x:Name="BasedCB" Content="Based" Grid.Column="4" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
-        <RadioButton x:Name="bpRB" Content="BP" Grid.Column="4" HorizontalAlignment="Left" Margin="139,0,0,0" VerticalAlignment="Center"/>
-        <RadioButton x:Name="bxRB" Content="BX" Grid.Column="4" HorizontalAlignment="Left" Margin="82,0,0,0" VerticalAlignment="Center"/>
+        <CheckBox x:Name="BasedCB" Content="Based" Grid.Column="4" HorizontalAlignment="Left" Margin="15,124,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="bpRB" GroupName="Based" Content="BP" Grid.Column="4" HorizontalAlignment="Left" Margin="131,124,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="bxRB" GroupName="Based" Content="BX" Grid.Column="4" HorizontalAlignment="Left" Margin="82,124,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="indexedCB" Content="Indexed" Grid.Column="4" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Grid.Row="1"/>
         <RadioButton x:Name="siRB" Content="SI" Grid.Column="4" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Grid.Row="1"/>
         <RadioButton x:Name="diRB" Content="DI" Grid.Column="4" HorizontalAlignment="Left" Margin="131,13,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+        <CheckBox x:Name="bindexedCB" Content="based indexed" Grid.Column="4" HorizontalAlignment="Left" Margin="10,21,0,0" VerticalAlignment="Top" Grid.Row="3"/>
+        <TextBox x:Name="ssTextBox" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="112" Height="34" Grid.Column="4" FontSize="20" FontWeight="Bold" TextAlignment="Center" MaxLength="2" MaxLines="1" CharacterCasing="Upper" TextChanged="TextBox_TextChanged" Margin="0,75,0,0" Text="123"/>
+        <Label Content="SS" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" FontSize="18" RenderTransformOrigin="-0.581,-0.588" Grid.Column="4" Margin="10,75,0,0"/>
     </Grid>
 </Window>

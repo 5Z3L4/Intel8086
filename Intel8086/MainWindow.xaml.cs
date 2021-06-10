@@ -57,9 +57,6 @@ namespace Intel8086
             //check if movTextBox isn't empty (its not working atm)
             if (movTextBox.Text!=null) 
             {
-                //take index of memory from textbox
-               
-                //check if it is [] or nah TO DO
                 //MOV value to memory
                 if(selected2 == "memory")
                 {
@@ -95,6 +92,36 @@ namespace Intel8086
                             bxValue = diTextBox.Text;
                         }
                         dsValue += Convert.ToUInt32(bxValue, 16);
+                        dsValue += Convert.ToUInt32(movTextBox.Text, 16);
+                        memoryIndex = Convert.ToInt32(dsValue);
+                        memory[memoryIndex] = registerSecond.Text;
+                        memoryHelper[memoryIndex] = registerSecondHelper.Text;
+                        Trace.WriteLine(memoryIndex);
+                    }
+                    else if ((bool)bindexedCB.IsChecked)
+                    {
+                        string bxValue = "0";
+                        uint dsValue = Convert.ToUInt32(dsTextBox.Text, 16);
+                        if ((bool)bxRB.IsChecked)
+                        {
+                            dsValue += Convert.ToUInt32(bhTextBox.Text + blTextBox.Text, 16);
+                        }
+                        else if ((bool)bpRB.IsChecked)
+                        {
+                            dsValue = Convert.ToUInt32(ssTextBox.Text, 16);
+                            dsValue += Convert.ToUInt32(bpTextBox.Text, 16);
+                        }
+                        if ((bool)siRB.IsChecked)
+                        {
+                            bxValue = siTextBox.Text;
+                        }
+                        else if ((bool)diRB.IsChecked)
+                        {
+                            bxValue = diTextBox.Text;
+                        }
+                        
+                        dsValue += Convert.ToUInt32(bxValue, 16);
+                        
                         dsValue += Convert.ToUInt32(movTextBox.Text, 16);
                         memoryIndex = Convert.ToInt32(dsValue);
                         memory[memoryIndex] = registerSecond.Text;
@@ -154,6 +181,36 @@ namespace Intel8086
                         registerFirst.Text = memory[memoryIndex];
                         registerFirstHelper.Text = memoryHelper[memoryIndex];
                     }
+                    else if ((bool)bindexedCB.IsChecked)
+                    {
+                        string bxValue = "0";
+                        uint dsValue = Convert.ToUInt32(dsTextBox.Text, 16);
+                        if ((bool)bxRB.IsChecked)
+                        {
+                            dsValue += Convert.ToUInt32(bhTextBox.Text + blTextBox.Text, 16);
+                        }
+                        else if ((bool)bpRB.IsChecked)
+                        {
+                            dsValue = Convert.ToUInt32(ssTextBox.Text, 16);
+                            dsValue += Convert.ToUInt32(bpTextBox.Text, 16);
+                        }
+                        if ((bool)siRB.IsChecked)
+                        {
+                            bxValue = siTextBox.Text;
+                        }
+                        else if ((bool)diRB.IsChecked)
+                        {
+                            bxValue = diTextBox.Text;
+                        }
+
+                        dsValue += Convert.ToUInt32(bxValue, 16);
+
+                        dsValue += Convert.ToUInt32(movTextBox.Text, 16);
+                        memoryIndex = Convert.ToInt32(dsValue);
+                        registerFirst.Text = memory[memoryIndex];
+                        registerFirstHelper.Text = memoryHelper[memoryIndex];
+                        Trace.WriteLine(memoryIndex);
+                    }
                     else
                     {
                         memoryIndex = Convert.ToInt32(movTextBox.Text);
@@ -163,12 +220,6 @@ namespace Intel8086
                             registerFirstHelper.Text = memoryHelper[memoryIndex];
                         }
                     }
-                    //if(based)
-                    //{
-                    //  memoryIndex = dsTextBox.Text * 10 + string(bh + bl) + lastint
-                    //   dxTextBox.Text = memory[memoryIndex]
-                    //}
-                    
                 }
             }
         }
