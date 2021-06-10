@@ -32,6 +32,8 @@ namespace Intel8086
         TextBox registerFirstHelper = new TextBox();
         TextBox registerSecond = new TextBox();
         TextBox registerSecondHelper = new TextBox();
+        Stack<string> intelStack = new Stack<string>();
+        Stack<string> intelStack2 = new Stack<string>();
 
         public MainWindow()
         {
@@ -224,17 +226,7 @@ namespace Intel8086
             }
         }
 
-        private void PUSH()
-        {
-            //rejestr do stosu
-            //SP+2
-        }
 
-        private void POP()
-        {
-            //sp-2
-            //rejestr odejmujemy od stosu
-        }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -567,6 +559,24 @@ namespace Intel8086
                 }
             }
 
+        }
+
+        private void PUSH(object sender, RoutedEventArgs e)
+        {
+            intelStack.Push(registerFirst.Text);
+            intelStack2.Push(registerFirstHelper.Text);
+            int temp = Convert.ToInt32(spTextBox.Text);
+            temp += 2;
+            spTextBox.Text = Convert.ToString(temp);
+        }
+
+        private void POP(object sender, RoutedEventArgs e)
+        {
+            int temp = Convert.ToInt32(spTextBox.Text);
+            temp -= 2;
+            spTextBox.Text = Convert.ToString(temp);
+            registerFirst.Text = intelStack.Pop();
+            registerFirstHelper.Text = intelStack2.Pop();
         }
     }
 }
