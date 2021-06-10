@@ -373,34 +373,197 @@ namespace Intel8086
             }
             if (movTextBox.Text != null)
             {
-                
-                //check if it is [] or nah TO DO
+
                 if (selected2 == "memory")
                 {
-                    memoryIndex = Convert.ToInt32(movTextBox.Text);
-                    string temp = memory[memoryIndex]; 
-                    memory[memoryIndex] = registerSecond.Text;
-                    registerSecond.Text = temp;
-                    if (registerSecondHelper != null)
+                    if ((bool)BasedCB.IsChecked)
                     {
-                        temp = registerSecondHelper.Text;
+                        string bxValue = "0";
+                        uint dsValue = Convert.ToUInt32(dsTextBox.Text, 16);
+                        if ((bool)bxRB.IsChecked)
+                        {
+                            bxValue = bhTextBox.Text + blTextBox.Text;
+                        }
+                        else if ((bool)bpRB.IsChecked)
+                        {
+                            bxValue = bpTextBox.Text;
+                        }
+                        dsValue += Convert.ToUInt32(bxValue, 16);
+                        dsValue += Convert.ToUInt32(movTextBox.Text, 16);
+                        memoryIndex = Convert.ToInt32(dsValue);
+                        string temporary = memory[memoryIndex];
+                        memory[memoryIndex] = registerSecond.Text;
+                        registerSecond.Text = temporary;
+                        string temporaryHelper = memoryHelper[memoryIndex];
                         memoryHelper[memoryIndex] = registerSecondHelper.Text;
-                        registerSecondHelper.Text = temp;
+                        registerSecondHelper.Text = temporaryHelper;
+                        Trace.WriteLine(memoryIndex);
                     }
+                    else if ((bool)indexedCB.IsChecked)
+                    {
+                        string bxValue = "0";
+                        uint dsValue = Convert.ToUInt32(dsTextBox.Text, 16);
+                        if ((bool)siRB.IsChecked)
+                        {
+                            bxValue = siTextBox.Text;
+                        }
+                        else if ((bool)diRB.IsChecked)
+                        {
+                            bxValue = diTextBox.Text;
+                        }
+                        dsValue += Convert.ToUInt32(bxValue, 16);
+                        dsValue += Convert.ToUInt32(movTextBox.Text, 16);
+                        string temporary = memory[memoryIndex];
+                        memory[memoryIndex] = registerSecond.Text;
+                        registerSecond.Text = temporary;
+                        string temporaryHelper = memoryHelper[memoryIndex];
+                        memoryHelper[memoryIndex] = registerSecondHelper.Text;
+                        registerSecondHelper.Text = temporaryHelper;
+                        Trace.WriteLine(memoryIndex);
+                    }
+                    else if ((bool)bindexedCB.IsChecked)
+                    {
+                        string bxValue = "0";
+                        uint dsValue = Convert.ToUInt32(dsTextBox.Text, 16);
+                        if ((bool)bxRB.IsChecked)
+                        {
+                            dsValue += Convert.ToUInt32(bhTextBox.Text + blTextBox.Text, 16);
+                        }
+                        else if ((bool)bpRB.IsChecked)
+                        {
+                            dsValue = Convert.ToUInt32(ssTextBox.Text, 16);
+                            dsValue += Convert.ToUInt32(bpTextBox.Text, 16);
+                        }
+                        if ((bool)siRB.IsChecked)
+                        {
+                            bxValue = siTextBox.Text;
+                        }
+                        else if ((bool)diRB.IsChecked)
+                        {
+                            bxValue = diTextBox.Text;
+                        }
+
+                        dsValue += Convert.ToUInt32(bxValue, 16);
+
+                        dsValue += Convert.ToUInt32(movTextBox.Text, 16);
+                        memoryIndex = Convert.ToInt32(dsValue);
+                        string temporary = memory[memoryIndex];
+                        memory[memoryIndex] = registerSecond.Text;
+                        registerSecond.Text = temporary;
+                        string temporaryHelper = memoryHelper[memoryIndex];
+                        memoryHelper[memoryIndex] = registerSecondHelper.Text;
+                        registerSecondHelper.Text = temporaryHelper;
+                    }
+                    else
+                    {
+                        memoryIndex = Convert.ToInt32(movTextBox.Text);
+                        string temp = memory[memoryIndex];
+                        memory[memoryIndex] = registerSecond.Text;
+                        registerSecond.Text = temp;
+                        if (registerSecondHelper != null)
+                        {
+                            temp = registerSecondHelper.Text;
+                            memoryHelper[memoryIndex] = registerSecondHelper.Text;
+                            registerSecondHelper.Text = temp;
+                        }
+                    }
+                    
                 }
                 else if (selected == "memory")
                 {
-                    memoryIndex = Convert.ToInt32(movTextBox.Text);
-                    string temp = registerFirst.Text;
-                    registerFirst.Text = memory[memoryIndex];
-                    memory[memoryIndex] = temp;
-                    if (registerFirstHelper != null)
+                    if ((bool)BasedCB.IsChecked)
                     {
-                        temp = registerFirstHelper.Text;
-                        registerFirstHelper.Text = memoryHelper[memoryIndex];
-                        memoryHelper[memoryIndex] = temp;
-                        
+                        string bxValue = "0";
+                        uint dsValue = Convert.ToUInt32(dsTextBox.Text, 16);
+                        if ((bool)bxRB.IsChecked)
+                        {
+                            bxValue = bhTextBox.Text + blTextBox.Text;
+                        }
+                        else if ((bool)bpRB.IsChecked)
+                        {
+                            bxValue = bpTextBox.Text;
+                        }
+                        dsValue += Convert.ToUInt32(bxValue, 16);
+                        dsValue += Convert.ToUInt32(movTextBox.Text, 16);
+                        memoryIndex = Convert.ToInt32(dsValue);
+                        string temporary = memory[memoryIndex];
+                        memory[memoryIndex] = registerFirst.Text;
+                        registerFirst.Text = temporary;
+                        string temporaryHelper = memoryHelper[memoryIndex];
+                        memoryHelper[memoryIndex] = registerFirstHelper.Text;
+                        registerFirstHelper.Text = temporaryHelper;
+                        Trace.WriteLine(memoryIndex);
                     }
+                    else if ((bool)indexedCB.IsChecked)
+                    {
+                        string bxValue = "0";
+                        uint dsValue = Convert.ToUInt32(dsTextBox.Text, 16);
+                        if ((bool)siRB.IsChecked)
+                        {
+                            bxValue = siTextBox.Text;
+                        }
+                        else if ((bool)diRB.IsChecked)
+                        {
+                            bxValue = diTextBox.Text;
+                        }
+                        dsValue += Convert.ToUInt32(bxValue, 16);
+                        dsValue += Convert.ToUInt32(movTextBox.Text, 16);
+                        string temporary = memory[memoryIndex];
+                        memory[memoryIndex] = registerFirst.Text;
+                        registerFirst.Text = temporary;
+                        string temporaryHelper = memoryHelper[memoryIndex];
+                        memoryHelper[memoryIndex] = registerFirstHelper.Text;
+                        registerFirstHelper.Text = temporaryHelper;
+                        Trace.WriteLine(memoryIndex);
+                    }
+                    else if ((bool)bindexedCB.IsChecked)
+                    {
+                        string bxValue = "0";
+                        uint dsValue = Convert.ToUInt32(dsTextBox.Text, 16);
+                        if ((bool)bxRB.IsChecked)
+                        {
+                            dsValue += Convert.ToUInt32(bhTextBox.Text + blTextBox.Text, 16);
+                        }
+                        else if ((bool)bpRB.IsChecked)
+                        {
+                            dsValue = Convert.ToUInt32(ssTextBox.Text, 16);
+                            dsValue += Convert.ToUInt32(bpTextBox.Text, 16);
+                        }
+                        if ((bool)siRB.IsChecked)
+                        {
+                            bxValue = siTextBox.Text;
+                        }
+                        else if ((bool)diRB.IsChecked)
+                        {
+                            bxValue = diTextBox.Text;
+                        }
+
+                        dsValue += Convert.ToUInt32(bxValue, 16);
+
+                        dsValue += Convert.ToUInt32(movTextBox.Text, 16);
+                        memoryIndex = Convert.ToInt32(dsValue);
+                        string temporary = memory[memoryIndex];
+                        memory[memoryIndex] = registerFirst.Text;
+                        registerFirst.Text = temporary;
+                        string temporaryHelper = memoryHelper[memoryIndex];
+                        memoryHelper[memoryIndex] = registerFirstHelper.Text;
+                        registerFirstHelper.Text = temporaryHelper;
+                    }
+                    else
+                    {
+                        memoryIndex = Convert.ToInt32(movTextBox.Text);
+                        string temp = registerFirst.Text;
+                        registerFirst.Text = memory[memoryIndex];
+                        memory[memoryIndex] = temp;
+                        if (registerFirstHelper != null)
+                        {
+                            temp = registerFirstHelper.Text;
+                            registerFirstHelper.Text = memoryHelper[memoryIndex];
+                            memoryHelper[memoryIndex] = temp;
+
+                        }
+                    }
+                    
                 }
             }
 
