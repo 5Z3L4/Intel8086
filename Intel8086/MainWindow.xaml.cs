@@ -23,11 +23,14 @@ namespace Intel8086
     { 
         string selected;
         string selected2;
+        string bxValue = "0";
         bool properlyCheck;
         bool properlyCheck2;
         int memoryIndex;
+        uint dsValue;
         string[] memory = new string[65536];
         string[] memoryHelper = new string[65536];
+        TextBox wholeBx = new TextBox();
         TextBox registerFirst = new TextBox();
         TextBox registerFirstHelper = new TextBox();
         TextBox registerSecond = new TextBox();
@@ -40,8 +43,58 @@ namespace Intel8086
             InitializeComponent();
         }
 
+        //handles base and index addressing modes
+        public void ChooseAddressingMode(RadioButton bxOrSiRB, TextBox bxOrSiTB, RadioButton bpOrDiRB, TextBox bpOrDiTB, TextBox dsTB, TextBox ssTB, bool bToDS)
+        {
+            if ((bool)bxOrSiRB.IsChecked)
+            {
+                if(!bToDS)
+                    bxValue = bxOrSiTB.Text;
+                else
+                {
+                    dsValue = Convert.ToUInt32(dsTB.Text, 16);
+                    dsValue += Convert.ToUInt32(bxOrSiTB.Text, 16);
+                }
+                    
+            }
+            else if ((bool)bpOrDiRB.IsChecked)
+            {
+                if(!bToDS)
+                    bxValue = bpOrDiTB.Text;
+                else
+                {
+                    dsValue = Convert.ToUInt32(ssTB.Text, 16);
+                    dsValue += Convert.ToUInt32(bpOrDiTB.Text, 16);
+                }
+                    
+            }
+
+        }
+
+        public void AssignMemory(TextBox leftHalfOfRegister, TextBox rightHalfOfRegister, bool moveDataHere)
+        {
+            dsValue += Convert.ToUInt32(bxValue, 16);
+            dsValue += Convert.ToUInt32(movTextBox.Text, 16);
+            memoryIndex = Convert.ToInt32(dsValue);
+            if(moveDataHere)
+            {
+                memory[memoryIndex] = leftHalfOfRegister.Text;
+                memoryHelper[memoryIndex] = rightHalfOfRegister.Text;
+            }
+            else
+            {
+                leftHalfOfRegister.Text = memory[memoryIndex];
+                rightHalfOfRegister.Text = memoryHelper[memoryIndex];
+            }
+            
+            Trace.WriteLine(memoryIndex);
+            Trace.WriteLine(memory[memoryIndex]);
+            Trace.WriteLine(memoryHelper[memoryIndex]);
+        }
+
         private void MOV(object sender, RoutedEventArgs e)
         {
+            dsValue = 0;
             //MOV 8 bit (only half of register) AH,BH etc.
             if((properlyCheck && properlyCheck2 || !properlyCheck && !properlyCheck2) && registerFirst!=null && registerSecond !=null)
             {
@@ -52,9 +105,6 @@ namespace Intel8086
             {
                 registerFirstHelper.Text = registerSecondHelper.Text;
             }
-            
-            //TO DO Based Indexed BX BP and one of SI DI
-            //MOV [DI]+12, AL
             //
             //check if movTextBox isn't empty (its not working atm)
             if (movTextBox.Text!=null) 
@@ -64,71 +114,16 @@ namespace Intel8086
                 {
                     if ((bool)BasedCB.IsChecked)
                     {
-                        string bxValue = "0";
-                        uint dsValue = Convert.ToUInt32(dsTextBox.Text, 16);
-                        if ((bool)bxRB.IsChecked)
-                        {
-                            bxValue = bhTextBox.Text + blTextBox.Text;
-                        }
-                        else if ((bool)bpRB.IsChecked)
-                        {
-                            bxValue = bpTextBox.Text;
-                        }
-                        dsValue += Convert.ToUInt32(bxValue, 16);
-                        dsValue += Convert.ToUInt32(movTextBox.Text, 16);
-                        memoryIndex = Convert.ToInt32(dsValue);
-                        memory[memoryIndex] = registerSecond.Text;
-                        memoryHelper[memoryIndex] = registerSecondHelper.Text;
-                        Trace.WriteLine(memoryIndex);
+                        ChooseAddressingMode(bxRB, wholeBx , bpRB, bpTextBox, dsTextBox, ssTextBox,  false);
                     }
                     else if ((bool)indexedCB.IsChecked)
                     {
-                        string bxValue = "0";
-                        uint dsValue = Convert.ToUInt32(dsTextBox.Text, 16);
-                        if ((bool)siRB.IsChecked)
-                        {
-                            bxValue = siTextBox.Text;
-                        }
-                        else if ((bool)diRB.IsChecked)
-                        {
-                            bxValue = diTextBox.Text;
-                        }
-                        dsValue += Convert.ToUInt32(bxValue, 16);
-                        dsValue += Convert.ToUInt32(movTextBox.Text, 16);
-                        memoryIndex = Convert.ToInt32(dsValue);
-                        memory[memoryIndex] = registerSecond.Text;
-                        memoryHelper[memoryIndex] = registerSecondHelper.Text;
-                        Trace.WriteLine(memoryIndex);
+                        ChooseAddressingMode(siRB, siTextBox, diRB, diTextBox, dsTextBox, ssTextBox, false);
                     }
                     else if ((bool)bindexedCB.IsChecked)
                     {
-                        string bxValue = "0";
-                        uint dsValue = Convert.ToUInt32(dsTextBox.Text, 16);
-                        if ((bool)bxRB.IsChecked)
-                        {
-                            dsValue += Convert.ToUInt32(bhTextBox.Text + blTextBox.Text, 16);
-                        }
-                        else if ((bool)bpRB.IsChecked)
-                        {
-                            dsValue = Convert.ToUInt32(ssTextBox.Text, 16);
-                            dsValue += Convert.ToUInt32(bpTextBox.Text, 16);
-                        }
-                        if ((bool)siRB.IsChecked)
-                        {
-                            bxValue = siTextBox.Text;
-                        }
-                        else if ((bool)diRB.IsChecked)
-                        {
-                            bxValue = diTextBox.Text;
-                        }
-                        
-                        dsValue += Convert.ToUInt32(bxValue, 16);
-                        
-                        dsValue += Convert.ToUInt32(movTextBox.Text, 16);
-                        memoryIndex = Convert.ToInt32(dsValue);
-                        memory[memoryIndex] = registerSecond.Text;
-                        memoryHelper[memoryIndex] = registerSecondHelper.Text;
-                        Trace.WriteLine(memoryIndex);
+                        ChooseAddressingMode(bxRB, wholeBx, bpRB, bpTextBox, dsTextBox, ssTextBox, true);
+                        ChooseAddressingMode(siRB, siTextBox, diRB, diTextBox, dsTextBox, ssTextBox, false);
                     }
                     else
                     {
@@ -138,80 +133,25 @@ namespace Intel8086
                         {
                             memoryHelper[memoryIndex] = registerSecondHelper.Text;
                         }
+                        return;
                     }
-                    
+                    AssignMemory(registerSecond, registerSecondHelper, true);
                 }
                 else if(selected == "memory")
                 {
                     if ((bool)BasedCB.IsChecked)
                     {
-                        string bxValue ="5";
-                        uint dsValue = Convert.ToUInt32(dsTextBox.Text, 16);
-                        if((bool)bxRB.IsChecked)
-                        {
-                            bxValue = bhTextBox.Text + blTextBox.Text;
-                        }
-                        else if((bool)bpRB.IsChecked)
-                        {
-                            bxValue = bpTextBox.Text;
-                        }
+                        ChooseAddressingMode(bxRB, wholeBx, bpRB, bpTextBox, dsTextBox, ssTextBox, false);
                         
-                        dsValue += Convert.ToUInt32(bxValue, 16);
-                        dsValue += Convert.ToUInt32(movTextBox.Text, 16);
-                        memoryIndex = Convert.ToInt32(dsValue);
-                        Trace.WriteLine(memoryIndex);
-                        registerFirst.Text = memory[memoryIndex];
-                        registerFirstHelper.Text = memoryHelper[memoryIndex];
                     }
                     else if ((bool)indexedCB.IsChecked)
                     {
-                        string bxValue = "5";
-                        uint dsValue = Convert.ToUInt32(dsTextBox.Text, 16);
-                        if ((bool)siRB.IsChecked)
-                        {
-                            bxValue = siTextBox.Text; ;
-                        }
-                        else if ((bool)diRB.IsChecked)
-                        {
-                            bxValue = diTextBox.Text;
-                        }
-
-                        dsValue += Convert.ToUInt32(bxValue, 16);
-                        dsValue += Convert.ToUInt32(movTextBox.Text, 16);
-                        memoryIndex = Convert.ToInt32(dsValue);
-                        Trace.WriteLine(memoryIndex);
-                        registerFirst.Text = memory[memoryIndex];
-                        registerFirstHelper.Text = memoryHelper[memoryIndex];
+                        ChooseAddressingMode(siRB, siTextBox, diRB, diTextBox, dsTextBox, ssTextBox, false);
                     }
                     else if ((bool)bindexedCB.IsChecked)
                     {
-                        string bxValue = "0";
-                        uint dsValue = Convert.ToUInt32(dsTextBox.Text, 16);
-                        if ((bool)bxRB.IsChecked)
-                        {
-                            dsValue += Convert.ToUInt32(bhTextBox.Text + blTextBox.Text, 16);
-                        }
-                        else if ((bool)bpRB.IsChecked)
-                        {
-                            dsValue = Convert.ToUInt32(ssTextBox.Text, 16);
-                            dsValue += Convert.ToUInt32(bpTextBox.Text, 16);
-                        }
-                        if ((bool)siRB.IsChecked)
-                        {
-                            bxValue = siTextBox.Text;
-                        }
-                        else if ((bool)diRB.IsChecked)
-                        {
-                            bxValue = diTextBox.Text;
-                        }
-
-                        dsValue += Convert.ToUInt32(bxValue, 16);
-
-                        dsValue += Convert.ToUInt32(movTextBox.Text, 16);
-                        memoryIndex = Convert.ToInt32(dsValue);
-                        registerFirst.Text = memory[memoryIndex];
-                        registerFirstHelper.Text = memoryHelper[memoryIndex];
-                        Trace.WriteLine(memoryIndex);
+                        ChooseAddressingMode(bxRB, wholeBx, bpRB, bpTextBox, dsTextBox, ssTextBox, true);
+                        ChooseAddressingMode(siRB, siTextBox, diRB, diTextBox, dsTextBox, ssTextBox, false);
                     }
                     else
                     {
@@ -221,12 +161,12 @@ namespace Intel8086
                         {
                             registerFirstHelper.Text = memoryHelper[memoryIndex];
                         }
+                        return;
                     }
+                    AssignMemory(registerFirst, registerFirstHelper, false);
                 }
             }
         }
-
-
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -273,6 +213,7 @@ namespace Intel8086
             {
                 registerFirst = bhTextBox;
                 registerFirstHelper = blTextBox;
+                wholeBx.Text = registerFirstHelper.Text + registerFirst.Text;
                 properlyCheck = false;
             }
             else if (selected2 == "CX")
@@ -324,7 +265,10 @@ namespace Intel8086
             else if (selected == "BX")
             {
                 registerSecond = bhTextBox;
+
                 registerSecondHelper = blTextBox;
+                wholeBx.Text = registerSecond.Text + registerSecondHelper.Text;
+                Trace.WriteLine(wholeBx.Text);
                 properlyCheck2 = false;
             }
             else if (selected == "CX")
